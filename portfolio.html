@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keval Koriya · Android + UI/UX Portfolio</title>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f8faff;
+            color: #1e293b;
+            line-height: 1.5;
+            padding: 2rem 1.5rem;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Header with avatar/bio */
+        .portfolio-header {
+            margin-bottom: 2.5rem;
+        }
+        .profile-row {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            background: white;
+            padding: 1.8rem 2.2rem;
+            border-radius: 48px;
+            box-shadow: 0 12px 28px -8px rgba(0,27,58,0.1);
+            border: 1px solid #e9eef3;
+        }
+        .avatar-icon {
+            width: 88px;
+            height: 88px;
+            border-radius: 50%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            border: 4px solid white;
+            box-shadow: 0 12px 18px -8px rgba(0,50,120,0.2);
+            background-color: #eef2ff; /* fallback */
+            display: flex;
+            align-items: center;
+            align-self: flex-start;
+            justify-content: center;
+            font-size: 3.2rem;
+            color: #1e3a8a;
+            flex-shrink: 0; /* prevent avatar from shrinking */
+        }
+        .bio h1 {
+            font-size: 2.4rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            background: linear-gradient(145deg, #0c1e42, #1e3a8a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .bio .tagline {
+            font-size: 1.1rem;
+            color: #334155;
+            margin: 0.2rem 0 0.5rem;
+        }
+        .bio p {
+            max-width: 700px;
+            color: #475569;
+        }
+        .expertise-badge {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin: 0.8rem 0;
+        }
+        .skill-pill {
+            background: linear-gradient(145deg, #e0e7ff, #d2defc);
+            color: #1e3a8a;
+            padding: 0.3rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid #a7b9dd;
+        }
+        .contact-social {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.2rem;
+            margin-top: 0.8rem;
+        }
+        .contact-social a, .contact-social span {
+            background: #eef2ff;
+            padding: 0.35rem 1.2rem 0.35rem 0.9rem;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            color: #1e293b;
+            border: 1px solid #d9e2ef;
+            transition: 0.1s;
+        }
+        .contact-social a:hover {
+            background: #dfe7ff;
+            border-color: #a7b9dd;
+        }
+        .contact-social i {
+            color: #2563eb;
+            font-size: 1rem;
+        }
+
+        /* Section Titles */
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 650;
+            margin: 2.5rem 0 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .section-title i {
+            color: #4f46e5;
+            font-size: 1.8rem;
+        }
+        .section-title span {
+            background: #2563eb;
+            color: white;
+            font-size: 1rem;
+            font-weight: 500;
+            padding: 0.2rem 0.9rem;
+            border-radius: 30px;
+            margin-left: 1rem;
+        }
+
+        /* Card grid */
+        .app-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.8rem;
+            margin-top: 1rem;
+        }
+
+        .app-card {
+            background: white;
+            border-radius: 28px;
+            padding: 1.5rem 1.5rem 1.8rem;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05), 0 8px 10px -6px rgba(0,0,0,0.02);
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 1px solid rgba(226, 232, 240, 0.6);
+            display: flex;
+            flex-direction: column;
+        }
+        .app-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 25px 35px -12px rgba(79, 70, 229, 0.15);
+            border-color: #cbd5e1;
+        }
+
+        .app-icon-image {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-color: #eef2ff;
+            margin-bottom: 1.2rem;
+            border: 2px solid white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .app-name {
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1.3;
+            margin-bottom: 0.2rem;
+        }
+
+        .package-id {
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 0.7rem;
+            color: #64748b;
+            background: #f1f5f9;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 1rem;
+            word-break: break-all;
+        }
+
+        .app-description {
+            color: #334155;
+            font-size: 0.9rem;
+            margin-bottom: 1.4rem;
+            flex-grow: 1;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .feature-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .feature-tag {
+            background: #f1f5f9;
+            color: #1e293b;
+            font-size: 0.7rem;
+            font-weight: 500;
+            padding: 0.3rem 0.8rem;
+            border-radius: 30px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .data-safety-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: #dcfce7;
+            color: #166534;
+            padding: 0.25rem 1rem 0.25rem 0.7rem;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            width: fit-content;
+            margin-bottom: 1rem;
+            border: 1px solid #bbf7d0;
+        }
+        .data-collected {
+            background: #fee2e2;
+            color: #991b1b;
+            border-color: #fecaca;
+        }
+        .no-encrypt {
+            background: #fff3cd;
+            color: #856404;
+            border-color: #ffeeba;
+        }
+
+        .app-footer-links {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 0.5rem;
+            border-top: 1px dashed #e2e8f0;
+            padding-top: 1rem;
+            font-size: 0.8rem;
+        }
+        .support-email {
+            color: #2563eb;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            font-weight: 500;
+        }
+        .support-email:hover {
+            text-decoration: underline;
+        }
+        .playstore-link {
+            background: #1e293b;
+            color: white;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        .playstore-link:hover {
+            background: #0f172a;
+        }
+
+        .dev-info-compact {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            background: #f8fafc;
+            padding: 0.8rem 1.2rem;
+            border-radius: 16px;
+            margin: 1.2rem 0 0.5rem;
+            font-size: 0.8rem;
+            border: 1px solid #e2e8f0;
+        }
+
+        /* Contact section */
+        .contact-section {
+            background: linear-gradient(145deg, #ffffff, #f0f4fe);
+            padding: 2.5rem 2rem;
+            border-radius: 48px;
+            text-align: center;
+            margin: 3rem 0 2rem;
+            border: 1px solid rgba(37, 99, 235, 0.25);
+            box-shadow: 0 20px 30px -10px rgba(30, 58, 138, 0.1);
+        }
+        .contact-section h2 {
+            font-size: 2.2rem;
+            font-weight: 650;
+            letter-spacing: -0.02em;
+            color: #0f172a;
+            margin-bottom: 1rem;
+        }
+        .contact-section h2 i {
+            color: #2563eb;
+            margin-right: 10px;
+        }
+        .contact-details {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin: 1.8rem 0 0.5rem;
+        }
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            background: white;
+            padding: 0.8rem 2rem;
+            border-radius: 60px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.02);
+            border: 1px solid #e2e8f0;
+            font-size: 1.1rem;
+        }
+        .contact-item i {
+            font-size: 1.6rem;
+            color: #2563eb;
+            width: 32px;
+        }
+        .contact-item a, .contact-item span {
+            color: #1e293b;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .contact-item a:hover {
+            color: #2563eb;
+            text-decoration: underline;
+        }
+
+        .footer-note {
+            text-align: center;
+            margin-top: 3rem;
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <!-- ========== HEADER with Keval Koriya + UI/UX & WEB ========== -->
+    <div class="portfolio-header">
+        <div class="profile-row">
+            <div class="avatar-icon" style="background-image: url('https://avatars.githubusercontent.com/u/124446799?s=400&u=2fe5395d769a0fd9291c10d3dc04ed1b63626e43&v=4');"></div>
+            <div class="bio">
+                <h1>Keval Koriya</h1>
+                <div class="tagline">Android developer · UI/UX designer · Website developer</div>
+                <div class="expertise-badge">
+                    <span class="skill-pill"><i class="fas fa-paint-brush"></i> UI/UX expert</span>
+                    <span class="skill-pill"><i class="fas fa-laptop-code"></i> Website dev</span>
+                    <span class="skill-pill"><i class="fab fa-android"></i> 15+ apps</span>
+                </div>
+                <p>I craft clean, functional Android apps with a strong focus on user experience and privacy. Beyond mobile, I design intuitive interfaces and build responsive websites. 7 apps under Lunai, plus collaborations across creative & automation space.</p>
+                <div class="contact-social">
+                    <span><i class="fas fa-phone-alt"></i> +91 95123 90868</span>
+                    <a href="mailto:kkoriya7610@gmail.com"><i class="fas fa-envelope"></i> kkoriya7610@gmail.com</a>
+                    <a href="https://www.linkedin.com/in/keval-koriya-663a11b6/" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                    <a href="https://github.com/kevalkoriya94" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== LUNAI APPS (7 apps, icons from Play Store) ========== -->
+    <div class="section-title">
+        <i class="fas fa-moon"></i> Lunai Apps (Keval Koriya) <span>7 apps</span>
+    </div>
+    <p style="margin-bottom: 1rem; color: #475569;">📧 <a href="mailto:lunaiapps52@gmail.com" style="color: #2563eb;">lunaiapps52@gmail.com</a> · Surat, India</p>
+
+    <div class="app-grid">
+        <!-- 1. File Cleaner -->
+        <div class="app-card">
+            <div class="app-icon-image" style="background-image: url('https://play-lh.googleusercontent.com/NXmysmgD2SHRYqFl-3TZ0Up3oGIKK00OK2lM7VEdB7YCue4_KRmIGITit0husI5DHg=w480-h960-rw');"></div>
+            <div class="app-name">Delete Files, Files Cleaner</div>
+            <div class="package-id">com.filecleaner.junkcleaner</div>
+            <div class="app-description">Remove junk, screenshots, big videos, WhatsApp files, APKs, and more. Clean up storage easily.</div>
+            <div class="feature-tags"><span class="feature-tag">photo clean</span><span class="feature-tag">video clean</span><span class="feature-tag">WhatsApp</span><span class="feature-tag">APK remover</span></div>
+            <div class="data-safety-badge"><i class="fas fa-shield-alt"></i> No data collected · Encrypted</div>
+            <div class="app-footer-links"><a href="mailto:lunaiapps52@gmail.com" class="support-email"><i class="far fa-envelope"></i> support</a><a href="https://play.google.com/store/apps/details?id=com.filecleaner.junkcleaner" target="_blank" class="playstore-link"><i class="fab fa-google-play"></i> Play</a></div>
+        </div>
+        <!-- 2. Video Player - My VideoX -->
+        <div class="app-card">
+            <div class="app-icon-image" style="background-image: url('https://play-lh.googleusercontent.com/PyqqdiibUve3XmIOcYFv371w09iBN63mKC-A_G-CQ6bok0ftL8Wyp3qeV1KOwsn-aZc=w480-h960-rw');"></div>
+            <div class="app-name">Video Player - My VideoX</div>
+            <div class="package-id">com.videoplayer.videox</div>
+            <div class="app-description">All-format video player with pop-up (floating) mode, slow/fast motion, and built-in music player.</div>
+            <div class="feature-tags"><span class="feature-tag">4K/MP4/MKV</span><span class="feature-tag">pop-up</span><span class="feature-tag">speed control</span><span class="feature-tag">music player</span></div>
+            <div class="data-safety-badge"><i class="fas fa-shield-alt"></i> No data shared · No data collected</div>
+            <div class="app-footer-links"><a href="mailto:lunaiapps52@gmail.com" class="support-email"><i class="far fa-envelope"></i> support</a><a href="https://play.google.com/store/apps/details?id=com.videoplayer.videox" target="_blank" class="playstore-link"><i class="fab fa-google-play"></i> Play</a></div>
+        </div>
+        <!-- 3. Secret Dialer -->
+        <div class="app-card">
+            <div class="app-icon-image" style="background-image: url('https://play-lh.googleusercontent.com/K6vaBR1_2jKc3aOyHHtpkPeD3f4ERSV1Jc_CptlhjdxzJPtJMcp5KaMWavPP523QKwI=w480-h960-rw');"></div>
+            <div class="app-name">Secret Dialer, Hide Photos</div>
+            <div class="package-id">com.dialervault.galleryvaultnew</div>
+            <div class="app-description">Disguised as dialer. Hide photos, videos, files behind a working dialer with PIN entry.</div>
+            <div class="feature-tags"><span class="feature-tag">OS 10 dialer</span><span class="feature-tag">T9 search</span><span class="feature-tag">secret vault</span></div>
+            <div class="data-safety-badge"><i class="fas fa-shield-alt"></i> No data collected · Encrypted</div>
+            <div class="app-footer-links"><a href="mailto:lunaiapps52@gmail.com" class="support-email"><i class="far fa-envelope"></i> support</a><a href="https://play.google.com/store/apps/details?id=com.dialervault.galleryvaultnew" target="_blank" class="playstore-link"><i class="fab fa-google-play"></i> Play</a></div>
+        </div>
+        <!-- 4. Calculator Vault -->
+        <div class="app-card">
+            <div class="app-icon-image" style="background-image: url('https://play-lh.googleusercontent.com/dUjmFB7716mvponbTHxOxPnw1CcgFwMVlQprpmv8NTnpZ-o5hx_jKgtelJyVLN4GV8Pi=s480-rw');"></div>
+            <div class="app-name">Calculator Vault Hide Files</div>
+            <div class="package-id">vault.com.calculatorvault</div>
+            <div class="app-description">Hide photos/videos inside a functioning calculator. PIN protected, recovery email, uninstall protection.</div>
+            <div class="feature-tags"><span class="feature-tag">functional calc</span><span class="feature-tag">PIN</span><span class="feature-tag">uninstall protect</span></div>
+            <div class="data-safety-badge"><i class="fas fa-shield-alt"></i> No data collected · Encrypted</div>
+            <div class="app-footer-links"><a href="mailto:lunaiapps52@gmail.com" class="support-email"><i class="far fa-envelope"></i> support</a><a href="https://play.google.com/store/apps/details?id=vault.com.calculatorvault" target="_blank" class="playstore-link"><i class="fab fa-google-play"></i> Play</a></div>
+        </div>
+        <!-- 5. Hidden Files Finder -->
+        <div class="app-card">
+            <div class="app-icon-image" style="background-image: url('https://play-lh.googleusercontent.com/zCf4akPNseEnPPlOw02edTy3WslGHtAQxubgbZBDqXL8yjMcuzeyFQIRDULSJS9OWGY=w480-h960-rw');"></div>
+            <div class="app-name">Hidden Files Finder</div>
+            <div class="package-id">com.hiddenfiles.finder</div>
+            <div class="app-description">Locate and manage hidden files, nomedia folders, and private data on your device.</div>
+            <div class="feature-tags"><span class="feature-tag">hidden files</span><span class="feature-tag">nomedia</span><span class="feature-tag">manager</span></div>
+            <div class="data-safety-badge"><i class="fas fa-shield-alt"></i> No data collected (inferred)</div>
+            <div class="app-footer-links"><a href="mailto:lunaiapps52@gmail.com" class="support-email"><i class="far fa-envelope"></i> support</a><a href="https://play.google.com/store/apps/details?id=com.hiddenfiles.finder" target="_blank" class="playstore-link"><i class="fab fa-google-play"></i> Play</a></div>
+        </div>
+        <!-- 6. Simple Alarm, Stopwatch -->
+        <div class="app-card">
+            <div class="app-icon-image" style="background-image: url('https://play-lh.googleusercontent.com/AFeZh0Pl3vTBv6vD58v1RfYH_EN7iUgpMpH3FYmY5js3lzlwXY2hzjwZRFGInW_lJ1nEzuCdSQGRZXZt9A4Dqw=w480-h960-rw');"></div>
+            <div class="app-name">Simple Alarm, Stopwatch</div>
+            <div class="package-id">com.simplealarmapp.stopwatch</div>
+            <div class="app-description">Minimalist alarm and stopwatch. No clutter, just essential time tools.</div>
+            <div class="feature-tags"><span class="feature-tag">alarm</span><span class="feature-tag">stopwatch</span><span class="feature-tag">timer</span></div>
+            <div class="data-safety-badge"><i class="fas fa-shield-alt"></i> No data collected (inferred)</div>
+            <div class="app-footer-links"><a href="mailto:lunaiapps52@gmail.com" class="support-email"><i class="far fa-envelope"></i> support</a><a href="https://play.google.com/store/apps/details?id=com.simplealarmapp.stopwatch" target="_blank" class="playstore-link"><i class="fab fa-google-play"></i> Play</a></div>
+        </div>
+        <!-- 7. Video Maker · VGNG -->
+        <div class="app-card">
+            <div class="app-icon-image" style="background-image: url('https://play-lh.googleusercontent.com/Bhb0-wZk3I-qzpBH8_xouTIWn41onx_roRy8NTtqS3bm3nt8iI4W2-EjAklES25G7l0=w480-h960-rw');"></div>
+            <div class="app-name">Video Maker · VGNG</div>
+            <div class="package-id">com.vgng.videos.videomaker</div>
+            <div class="app-description">Create and edit videos with music, effects, and transitions. Easy video production tool.</div>
+            <div class="feature-tags"><span class="feature-tag">edit</span><span class="feature-tag">music</span><span class="feature-tag">effects</span></div>
+            <div class="data-safety-badge"><i class="fas fa-shield-alt"></i> No data collected (inferred)</div>
+            <div class="app-footer-links"><a href="mailto:lunaiapps52@gmail.com" class="support-email"><i class="far fa-envelope"></i> support</a><a href="https://play.google.com/store/apps/details?id=com.vgng.videos.videomaker" target="_blank" class="playstore-link"><i class="fab fa-google-play"></i> Play</a></div>
+        </div>
+    </div>
+
+    <!-- ========== NEW APPS SECTION (9 apps added) ========== -->
+    <div class="section-title" style="margin-top: 3rem;">
+        <i class="fas fa-rocket"></i> More Apps – portfolio expansion <span>9 apps</span>
+    </div>
+    <div class="app-grid">
+        <!-- 8. Birthday Story Video Maker -->
+        <div class="app-card">
+            <div class="app-icon-image" style="background-image: url('https://play-lh.googleusercontent.com/TsegPfyDY7K2MMuJ8vRvalUiFpb-t03QhSgLtwXTab7dhxHRQRPqMo5CAFihby5RRp_u=w480-h960-rw');"></div>
+            <div class="app-name">Birthday Story Video Maker</div>
+            <div class="package-id">com.birthdaystory.videomaker</div>
+            <div class="app-description">Create personalized birthday videos with music, stickers, and templates. Perfect for social media.</div>
+            <div class="feature-tags"><span class="feature-tag">video templates</span><span class="feature-tag">music</span><span class="feature-tag">stickers</span></div>
+            <div class="data-safety-badge"><i class="fas fa-shield-alt"></i> No data collected (inferred)</div>
+            <div class="app-footer-links"><a href="mailto:lunaiapps52@gmail.com?subject=Birthday%20Story" class="support-email"><i class="far fa-envelope"></i> support</a><a href="https://play.google.com/store/apps/details?id=com.birthdaystory.videomaker" target="_blank" class="playstore-link"><i class="fab fa-google-play"></i> Play</a></div>
+        </div>
+
+        <!-- 9. Gujarati Engagement Poster Maker -->
+        <div class="app-card">
+            <div class="app-icon-image" style="background-image: url('https://play-lh.googleusercontent.com/hCgpl6iAy7HrTx9iBex4E-ISqdfEh2Mt7o1NSvjNx2UHq60oa1_hI3IAqhq_Pcqkrs8=w480-h960-rw');"></div>
+            <div class="app-name">Gujarati Engagement Poster</div>
+            <div class="package-id">com.gujarati.engagement.postermaker</div>
+            <div class="app-description">Design engagement, wedding, and ceremony posters with Gujarati fonts and motifs.</div>
+            <div class="feature-tags"><span class="feature-tag">Gujarati</span><span class="feature-tag">wedding</span><span class="feature-tag">posters</span></div>
+            <div class="data-safety-badge"><i class="fas fa-shield-alt"></i> No data collected (inferred)</div>
+            <div class="app-footer-links"><a href="mailto:lunaiapps52@gmail.com" class="support-email"><i class="far fa-envelope"></i> support</a><a href="https://play.google.com/store/apps/details?id=com.gujarati.engagement.postermaker" target="_blank" class="playstore-link"><i class="fab fa-google-play"></i> Play</a></div>
+        </div>
+
+        <!-- 10. Spark 3D Meme Creator -->
+        <div class="app-card">
+            <div class="app-icon-image" style="background-image: url('https://play-lh.googleusercontent.com/aNNkdLCyhXXrr_6IQA_wbhC5rYvkRt2IF4v-fupH-ygiv4TqGPywogBHFQtG-sn_Tqs=w480-h960-rw');"></div>
+            <div class="app-name">Spark 3D Meme Creator</div>
+            <div class="package-id">com.spark3d.memecreator</div>
+            <div class="app-description">Make hilarious memes with 3D text, effects, and stickers. Easy meme generator.</div>
+            <div class="feature-tags"><span class="feature-tag">3D text</span><span class="feature-tag">memes</span><span class="feature-tag">stickers</span></div>
+            <div class="data-safety-badge"><i class="fas fa-shield-alt"></i> No data collected (inferred)</div>
+            <div class="app-footer-links"><a href="mailto:lunaiapps52@gmail.com" class="support-email"><i class="far fa-envelope"></i> support</a><a href="https://play.google.com/store/apps/details?id=com.spark3d.memecreator" target="_blank" class="playstore-link"><i class="fab fa-google-play"></i> Play</a></div>
+        </div>
+
+        <!-- 11. Hidden Photos & Deleted Files Finder -->
+        <div class="app-card">
+            <div class="app-icon-image" style="background-image: url('https://play-lh.googleusercontent.com/r-KlF5gK9DKQeV7S_Tzc7xunDPl8LKkN82oztZJP4Ki1QNqqwXl2RZA689_Epm8BVLfx=w480-h960-rw');"></div>
+            <div class="app-name">Hidden Photos Finder</div>
+            <div class="package-id">com.hiddenphotos.deletedfilesfinder</div>
+            <div class="app-description">Recover hidden photos, videos, and find deleted files on internal storage.</div>
+            <div class="feature-tags"><span class="feature-tag">recovery</span><span class="feature-tag">hidden</span><span class="feature-tag">deleted files</span></div>
+            <div class="data-safety-badge"><i class="fas fa-shield-alt"></i> No data collected (inferred)</div>
+            <div class="app-footer-links"><a href="mailto:lunaiapps52@gmail.com" class="support-email"><i class="far fa-envelope"></i> support</a><a href="https://play.google.com/store/apps/details?id=com.hiddenphotos.deletedfilesfinder" target="_blank" class="playstore-link"><i class="fab fa-google-play"></i> Play</a></div>
+        </div>
+
+        <!-- 12. Photo Motion Photo Motion -->
+        <div class="app-card">
+            <div class="app-icon-image" style="background-image: url('https://play-lh.googleusercontent.com/46kGeKHoIrRbTVfJEqqLiJ_eOwBtoaFhyIKasoK2QT4M2QLacR5XquoCBSACaUcXbc4x=w480-h960-rw');"></div>
+            <div class="app-name">Photo Motion - animate photo</div>
+            <div class="package-id">com.photomotion.photomotion</div>
+            <div class="app-description">Add motion effects to your still photos, create cinemagraphs, and share live photo loops.</div>
+            <div class="feature-tags"><span class="feature-tag">cinemagraph</span><span class="feature-tag">motion</span><span class="feature-tag">animation</span></div>
+            <div class="data-safety-badge"><i class="fas fa-shield-alt"></i> No data collected (inferred)</div>
+            <div class="app-footer-links"><a href="mailto:lunaiapps52@gmail.com" class="support-email"><i class="far fa-envelope"></i> support</a><a href="https://play.google.com/store/apps/details?id=com.photomotion.photomotion" target="_blank" class="playstore-link"><i class="fab fa-google-play"></i> Play</a></div>
+        </div>
+
+        <!-- 13. Voice Lockscreen KK -->
+        <div class="app-card">
+            <div class="app-icon-image" style="background-image: url('https://play-lh.googleusercontent.com/4nsOiqKrFiB21E1aBopRVf-gTGKCBETmp-QRZPYR-OScwDFAJwF12IUST40Oh7FuW6GX=w480-h960-rw');"></div>
+            <div class="app-name">Voice Lock Screen</div>
+            <div class="package-id">com.dm.apps.voicelockscreen.kk</div>
+            <div class="app-description">Unlock your phone with voice commands. Customizable lock screen with voice recognition.</div>
+            <div class="feature-tags"><span class="feature-tag">voice unlock</span><span class="feature-tag">security</span></div>
+            <div class="data-safety-badge data-collected"><i class="fas fa-exclamation-triangle"></i> Shares location, device ID · not encrypted</div>
+            <div class="app-footer-links"><a href="mailto:dilip11chothani@gmail.com" class="support-email"><i class="far fa-envelope"></i> Dilip Master</a><a href="https://play.google.com/store/apps/details?id=com.dm.apps.voicelockscreen.kk" target="_blank" class="playstore-link"><i class="fab fa-google-play"></i> Play</a></div>
+        </div>
+
+        <!-- 14. LED Remote (Stupendous) -->
+        <div class="app-card">
+            <div class="app-icon-image" style="background-image: url('https://play-lh.googleusercontent.com/SUqFRDC9vmVwzrJomkwMFUvXSqjWZx81EFf5EvPqdt3TdvMnpEz7-kAXC7PKWvfQrA=w480-h960-rw');"></div>
+            <div class="app-name">LED Strip Remote</div>
+            <div class="package-id">com.stupendousgame.ledremote.kk</div>
+            <div class="app-description">Turn your phone into a universal IR remote for RGB LED strips. Custom banners, digital glow stick.</div>
+            <div class="feature-tags"><span class="feature-tag">IR blaster</span><span class="feature-tag">RGB control</span><span class="feature-tag">party light</span></div>
+            <div class="data-safety-badge no-encrypt"><i class="fas fa-shield-alt"></i> Shares location, ID · no encryption</div>
+            <div class="app-footer-links"><a href="mailto:stupendousgame@gmail.com" class="support-email"><i class="far fa-envelope"></i> Stupendous</a><a href="https://play.google.com/store/apps/details?id=com.stupendousgame.ledremote.kk" target="_blank" class="playstore-link"><i class="fab fa-google-play"></i> Play</a></div>
+        </div>
+
+        <!-- 15. Smart Invoice & Bill Maker KK -->
+        <div class="app-card">
+            <div class="app-icon-image" style="background-image: url('https://play-lh.googleusercontent.com/flxYGtt5vcLkNYUK9xmSNedNsu4JdQZbQV2rLc8rg_VrcQpbmPbRsJgX5Vh0mQ8DoNM=w480-h960-rw');"></div>
+            <div class="app-name">Smart Invoice Bill Maker</div>
+            <div class="package-id">com.stupendous.smartinvoice.billmaker.kk</div>
+            <div class="app-description">Create, manage, and share professional invoices, estimates, and bills with GST support.</div>
+            <div class="feature-tags"><span class="feature-tag">invoicing</span><span class="feature-tag">GST</span><span class="feature-tag">PDF</span></div>
+            <div class="data-safety-badge data-collected"><i class="fas fa-exclamation-triangle"></i> Shares location, ID · not encrypted</div>
+            <div class="app-footer-links"><a href="mailto:dipshineapps@gmail.com" class="support-email"><i class="far fa-envelope"></i> Dipshine</a><a href="https://play.google.com/store/apps/details?id=com.stupendous.smartinvoice.billmaker.kk" target="_blank" class="playstore-link"><i class="fab fa-google-play"></i> Play</a></div>
+        </div>
+
+        <!-- 16. Bluetooth PC Mouse Keyboard -->
+        <div class="app-card">
+            <div class="app-icon-image" style="background-image: url('https://play-lh.googleusercontent.com/ZQaa5RD7QHPD-9aUuV8lgH5D17NUDDrXLZ5VLMGv55hjkeorI0i5IUfvnafR1nmqbw=w480-h960-rw');"></div>
+            <div class="app-name">Bluetooth PC Mouse</div>
+            <div class="package-id">com.dm.bluetoothpcmouse.keyboard.kk</div>
+            <div class="app-description">Use phone as Bluetooth mouse/keyboard for PC, laptop, Android TV. Touchpad + media keys.</div>
+            <div class="feature-tags"><span class="feature-tag">mouse</span><span class="feature-tag">keyboard</span><span class="feature-tag">remote</span></div>
+            <div class="data-safety-badge data-collected"><i class="fas fa-exclamation-triangle"></i> Shares location, ID · not encrypted</div>
+            <div class="app-footer-links"><a href="mailto:dilip11chothani@gmail.com" class="support-email"><i class="far fa-envelope"></i> Dilip Master</a><a href="https://play.google.com/store/apps/details?id=com.dm.bluetoothpcmouse.keyboard.kk" target="_blank" class="playstore-link"><i class="fab fa-google-play"></i> Play</a></div>
+        </div>
+    </div>
+
+    <!-- ========== PREVIOUS OTHER APPS (4 apps) ========== -->
+    <div class="section-title" style="margin-top: 3rem;">
+        <i class="fas fa-paint-brush"></i> Creative & Productivity <span>4 apps (collaborations)</span>
+    </div>
+    <div class="app-grid">
+        <!-- 17. Festival Poster Maker (Khushi) -->
+        <div class="app-card">
+            <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; justify-content: space-between;">
+                <div style="display: flex; align-items: center; gap: 1rem;"><div class="app-icon-image" style="background-image: url('https://play-lh.googleusercontent.com/vww1j2zuCZhLADtWzDSoSuy9pUbzCrCX1pAmFyUK_cvjDzzFc7JGn9KsdGuta-jMMMEClXfHxbQ4jnxDctynhQ=w480-h960-rw');"></div><div><div class="app-name">Festival Poster Maker</div><div class="package-id">com.festivalpostermaker.postmaker</div></div></div>
+                <a href="https://play.google.com/store/apps/details?id=com.festivalpostermaker.postmaker&hl=en_IN" target="_blank" class="playstore-link"><i class="fab fa-google-play"></i> Play</a>
+            </div>
+            <p class="app-description">Design stunning festival posters (Diwali, Holi, Eid), business banners, and social media posts with HD export.</p>
+            <div class="feature-tags"><span class="feature-tag">festival</span><span class="feature-tag">templates</span><span class="feature-tag">stickers</span></div>
+            <div class="data-safety-badge"><i class="fas fa-shield-alt"></i> No data shared · Encrypted</div>
+            <div class="dev-info-compact"><span><i class="fas fa-user"></i> Khushi Jatin Maniya</span><a href="mailto:jatinmaniya2113@gmail.com">jatinmaniya2113@gmail.com</a></div>
+        </div>
+        <!-- 18. CarOnPhone India -->
+        <div class="app-card">
+            <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; justify-content: space-between;"><div style="display: flex; align-items: center; gap: 1rem;"><div class="app-icon-image" style="background-image: url('https://play-lh.googleusercontent.com/ohmPJNHfhyNHMlqPI7R4DSQOlLdN7Lvwf6JPQxu6y0GgJthxwQFpki_Jbjj_YD4iVlrA=w480-h960-rw');"></div><div><div class="app-name">CarOnPhone India</div><div class="package-id">com.aviansoft.caronphone</div></div></div><a href="https://play.google.com/store/apps/details?id=com.aviansoft.caronphone" target="_blank" class="playstore-link"><i class="fab fa-google-play"></i> Play</a></div>
+            <p class="app-description">New car discovery, price, specs, EV info, service centers, and dashboard warning light guide.</p>
+            <div class="feature-tags"><span class="feature-tag">car prices</span><span class="feature-tag">compare</span><span class="feature-tag">EV</span></div>
+            <div class="data-safety-badge data-collected"><i class="fas fa-exclamation-triangle"></i> Shares & collects: location, personal info</div>
+            <div class="dev-info-compact"><span><i class="fas fa-building"></i> AVIANSOFT</span><a href="mailto:appsupport@aviansoft.in">appsupport@aviansoft.in</a></div>
+        </div>
+        <!-- 19. Lubi Task Management -->
+        <div class="app-card">
+            <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; justify-content: space-between;"><div style="display: flex; align-items: center; gap: 1rem;"><div class="app-icon-image" style="background-image: url('https://play-lh.googleusercontent.com/sFF8yuSdZjDxbgz5SDoOkeNuxdSpD3fM9qu8JSicul0amSps6ccWrpPjJxo0vJqtWRo=w480-h960-rw');"></div><div><div class="app-name">Lubi Task Management</div><div class="package-id">com.lubi.taskmanagement</div></div></div><a href="https://play.google.com/store/apps/details?id=com.lubi.taskmanagement" target="_blank" class="playstore-link"><i class="fab fa-google-play"></i> Play</a></div>
+            <p class="app-description">Task manager with observers and action buttons (approve/reply). Keep teams aligned.</p>
+            <div class="feature-tags"><span class="feature-tag">observers</span><span class="feature-tag">approval</span></div>
+            <div class="data-safety-badge data-collected"><i class="fas fa-shield-alt"></i> collects personal info & ID</div>
+            <div class="dev-info-compact"><span>developer info not public</span></div>
+        </div>
+        <!-- 20. MROBOTICS -->
+        <div class="app-card">
+            <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; justify-content: space-between;"><div style="display: flex; align-items: center; gap: 1rem;"><div class="app-icon-image" style="background-image: url('https://play-lh.googleusercontent.com/e9dSPqNyto48YJc5si94-xXYsDUuH6d_4NnLKhvwtrvrmkYG5gJD387F4PJQaqJ3zQ=w480-h960-rw');"></div><div><div class="app-name">MROBOTICS</div><div class="package-id">com.app.mrobotics</div></div></div><a href="https://play.google.com/store/apps/details?id=com.app.mrobotics" target="_blank" class="playstore-link"><i class="fab fa-google-play"></i> Play</a></div>
+            <p class="app-description">Manage solar trackers, SCARA robots, 6‑axis cobots, and conveyor belts. Real-time automation.</p>
+            <div class="feature-tags"><span class="feature-tag">solar</span><span class="feature-tag">cobot</span><span class="feature-tag">real-time</span></div>
+            <div class="data-safety-badge"><i class="fas fa-shield-alt"></i> Shares info · no data collected</div>
+            <div class="dev-info-compact"><span><i class="fas fa-building"></i> MROBOTICS</span><a href="mailto:mrobotics2022@gmail.com">mrobotics2022@gmail.com</a></div>
+        </div>
+    </div>
+
+    <!-- CONTACT SECTION (updated) -->
+    <div class="contact-section">
+        <h2><i class="fas fa-paper-plane"></i> Contact Keval</h2>
+        <p style="font-size: 1.2rem; color: #334155; max-width: 500px; margin: 0 auto;">For collaboration (Android/UI/UX/Web), support, or just to say hello:</p>
+        <div class="contact-details">
+            <div class="contact-item"><i class="fas fa-envelope"></i><a href="mailto:kkoriya7610@gmail.com">kkoriya7610@gmail.com</a></div>
+            <div class="contact-item"><i class="fas fa-phone-alt"></i><span>+91 95123 90868</span></div>
+            <div class="contact-item"><i class="fab fa-linkedin"></i><a href="https://www.linkedin.com/in/keval-koriya-663a11b6/" target="_blank">keval-koriya</a></div>
+        </div>
+        <p style="margin-top: 1.5rem; color: #64748b; font-size: 0.95rem;">Available for freelance Android, UI/UX design, and website development.</p>
+    </div>
+
+    <div class="footer-note">
+        <i class="far fa-copyright"></i> Keval Koriya – portfolio includes 20+ apps. UI/UX & Web expertise.
+    </div>
+
+</div> <!-- container -->
+</body>
+</html>
